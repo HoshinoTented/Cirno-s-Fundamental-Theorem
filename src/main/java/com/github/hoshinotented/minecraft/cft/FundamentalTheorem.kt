@@ -12,7 +12,6 @@ import org.slf4j.Logger
 class FundamentalTheorem {
   companion object {
     const val MODID = "cirno_fundamental_theorem"
-    var server: MinecraftServer? = null
     val LOGGER: Logger = LogUtils.getLogger()
   }
   

@@ -2,13 +2,12 @@ package com.github.hoshinotented.minecraft.cft.network
 
 import com.github.hoshinotented.minecraft.cft.FundamentalTheorem
 import com.github.hoshinotented.minecraft.cft.action.QuickMove
-import com.github.hoshinotented.minecraft.cft.util.getServerInstance
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload
 import net.minecraft.resources.ResourceLocation
-import net.minecraft.server.level.ServerPlayer
 import net.neoforged.neoforge.network.handling.PlayPayloadContext
-import java.util.UUID
+import net.neoforged.neoforge.server.ServerLifecycleHooks
+import java.util.*
 
 data class Packet(val uuid: UUID?) : CustomPacketPayload {
   companion object Handler : IPayloadHandler<Packet> {
@@ -28,7 +27,7 @@ data class Packet(val uuid: UUID?) : CustomPacketPayload {
       if (payload.uuid == null) throw IllegalStateException("bad packet")
       
       context.workHandler.submitAsync {
-        val server = getServerInstance()
+        val server = ServerLifecycleHooks.getCurrentServer()
           ?: throw IllegalStateException("Server didn't setup or here is client")
         val player = server.playerList.getPlayer(payload.uuid)
         if (player == null) {
