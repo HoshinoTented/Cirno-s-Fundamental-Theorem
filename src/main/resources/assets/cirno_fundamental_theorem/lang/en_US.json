@@ -1,0 +1,11 @@
+{
+  "key.cirno_fundamental_theorem.invoke.proof": "Quick Take/Put",
+  "key.cirno_fundamental_theorem.keep.using": "Keep Use Item/Block",
+  "key.cirno_fundamental_theorem.auto.fishing": "Auto Fishing",
+  "key.categories.cirno_fundamental_theorem": "Fundamental Theorem",
+
+  "message.cirno_fundamental_theorem.keep.using.initialize": "Keep-use item/block enabled",
+  "message.cirno_fundamental_theorem.keep.using.dispose": "Keep-use item/block disabled",
+  "message.cirno_fundamental_theorem.auto.fishing.initialize": "Auto fishing enabled",
+  "message.cirno_fundamental_theorem.auto.fishing.dispose": "Auto fishing disabled"
+}
