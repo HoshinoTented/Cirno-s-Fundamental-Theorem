@@ -2,7 +2,7 @@ plugins {
 //  id 'eclipse'
   id("idea")
   id("maven-publish")
-  id("net.neoforged.gradle.userdev") version "7.0.57"
+  id("net.neoforged.gradle.userdev") version "7.0.80"
   kotlin("jvm") version "1.9.20"
 }
 
@@ -32,6 +32,8 @@ sourceSets.main {
 tasks.withType<JavaCompile> {
   options.encoding = "UTF-8"
 }
+
+// Minecraft
 
 runs {
   configureEach {
