@@ -32,7 +32,6 @@ object KeyBindings {
   
   val keyKeepUsing = KeyMapping(
     of("keep.using"),
-    KeyConflictContext.IN_GAME,
     InputConstants.Type.KEYSYM,
     GLFW.GLFW_KEY_P,
     CATEGORIES
