@@ -9,7 +9,6 @@ import net.minecraftforge.event.TickEvent
 import net.minecraftforge.event.entity.EntityEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
-import java.lang.reflect.Field
 
 data class HookBiteEvent(val hook: FishingHook) : EntityEvent(hook)
 

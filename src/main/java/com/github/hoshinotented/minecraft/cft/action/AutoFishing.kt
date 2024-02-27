@@ -1,5 +1,6 @@
 package com.github.hoshinotented.minecraft.cft.action
 
+import com.github.hoshinotented.minecraft.cft.FundamentalTheorem
 import com.github.hoshinotented.minecraft.cft.event.HookBiteEvent
 import com.github.hoshinotented.minecraft.cft.event.KeyBindings
 import com.github.hoshinotented.minecraft.cft.util.AbstractJob
@@ -21,10 +22,24 @@ private class AutoFishingJob : AbstractJob<HookBiteEvent>("auto.fishing") {
   @SubscribeEvent
   override fun onTick(event: HookBiteEvent) {
     val hook = event.hook
-    val player = hook.playerOwner ?: return
-    val gameMode = Minecraft.getInstance()?.gameMode ?: return
+    val player = hook.playerOwner
+    if (player == null) {
+      FundamentalTheorem.LOGGER.warn("hook.playerOwner == null")
+      return
+    }
     
-    val preferMainHand = player.firstHandedItem { it.item is FishingRodItem } ?: return
+    val gameMode = Minecraft.getInstance().gameMode
+    if (gameMode == null) {
+      FundamentalTheorem.LOGGER.warn("gameMode == null")
+      return
+    }
+    
+    val preferMainHand = player.firstHandedItem { it.item is FishingRodItem }
+    if (preferMainHand == null) {
+      FundamentalTheorem.LOGGER.warn("Player doesn't hand a fishing rod")
+      return
+    }
+    
     val preferCoMainHand = player.lastHandedItem { it.item is FishingRodItem }!!
     
     gameMode.useItem(player, preferMainHand)    // end fish
