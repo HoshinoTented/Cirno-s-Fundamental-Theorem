@@ -3,7 +3,6 @@ package com.github.hoshinotented.minecraft.cft.event
 import com.github.hoshinotented.minecraft.cft.FundamentalTheorem
 import com.github.hoshinotented.minecraft.cft.action.AutoFishing
 import com.github.hoshinotented.minecraft.cft.action.Keep
-import com.github.hoshinotented.minecraft.cft.config.Axioms
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod

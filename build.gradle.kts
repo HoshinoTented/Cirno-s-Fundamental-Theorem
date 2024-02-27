@@ -2,7 +2,7 @@ plugins {
 //  id 'eclipse'
   id("idea")
   id("maven-publish")
-  id("net.neoforged.gradle.userdev") version "7.0.80"
+  id("net.minecraftforge.gradle") version "[6.0.16,6.2)"
   kotlin("jvm") version "1.9.20"
 }
 
@@ -12,7 +12,7 @@ val mod_group_id: String by ext
 val minecraft_version: String by ext
 val forge_version: String by ext
 
-version = "${minecraft_version}-${mod_version}"
+version = "${mod_version}-${minecraft_version}"
 group = mod_group_id
 
 // Compilation
@@ -33,51 +33,45 @@ tasks.withType<JavaCompile> {
   options.encoding = "UTF-8"
 }
 
-runs {
-  configureEach {
-    // Recommended logging data for a userdev environment
-    // The markers can be added/remove as needed separated by commas.
-    // "SCAN": For mods scan.
-    // "REGISTRIES": For firing of registry events.
-    // "REGISTRYDUMP": For getting the contents of all registries.
-    systemProperty("forge.logging.markers", "REGISTRIES")
+// Minecraft
+
+minecraft {
+  mappings("official", "1.20.1")
+  
+  copyIdeResources.set(true)
+  
+  accessTransformers("src/main/resources/META-INF/accesstransformer.cfg")
+  
+  runs {
+    configureEach {
+      workingDirectory(project.file("run"))
+      property("forge.logging.markers", "REGISTRIES")
+      property("forge.logging.console.level", "debug")
+    }
     
-    // Recommended logging level for the console
-    // You can set various levels here.
-    // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
-    systemProperty("forge.logging.console.level", "debug")
+    create("client") {
+      property("forge.enabledGameTestNamespaces", mod_id)
+    }
     
-    modSource(project.sourceSets.main.get())
-  }
-  
-  create("client") {
-    systemProperty("forge.enabledGameTestNamespaces", mod_id)
-  }
-  
-  create("server") {
-    systemProperty("forge.enabledGameTestNamespaces", mod_id)
-    programArgument("--nogui")
-  }
-  
-  // This run config launches GameTestServer and runs all registered gametests, then exits.
-  // By default, the server will crash when no gametests are provided.
-  // The gametest system is also enabled by default for other run configs under the /test command.
-  create("gameTestServer") {
-    systemProperty("forge.enabledGameTestNamespaces", mod_id)
-  }
-  
-  create("data") {
-    // example of overriding the workingDirectory set in configureEach above, uncomment if you want to use it
-    // workingDirectory project.file('run-data')
+    create("server") {
+      property("forge.enabledGameTestNamespaces", mod_id)
+      args("--nogui")
+    }
     
-    // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-    programArguments.addAll(
-      "--mod", mod_id,
-      "--all",
-      "--output", file("src/generated/resources/").absolutePath,
-      "--existing", file("src/main/resources/").absolutePath
-    )
+    create("gameTestServer") {
+      property("forge.enabledGameTestNamespaces", mod_id)
+    }
+    
+    create("data") {
+      args(
+        "--mod", mod_id,
+        "--all",
+        "--output", file("src/generated/resources/").absolutePath,
+        "--existing", file("src/main/resources/").absolutePath
+      )
+    }
   }
+  
 }
 
 // Dependency
@@ -90,16 +84,15 @@ repositories {
 }
 
 dependencies {
-  implementation("net.neoforged:forge:${minecraft_version}-${forge_version}")
+  val minecraft = configurations.getByName("minecraft")
+  minecraft("net.minecraftforge:forge:${minecraft_version}-${forge_version}")
+
+//  implementation("net.neoforged:forge:${minecraft_version}-${forge_version}")
   implementation("thedarkcolour:kotlinforforge:4.10.0")
 }
 
 // Others
 
-// This block of code expands all declared replace properties in the specified resource targets.
-// A missing property will result in an error. Properties are expanded using ${} Groovy notation.
-// When "copyIdeResources" is enabled, this will also run before the game launches in IDE environments.
-// See https://docs.gradle.org/current/dsl/org.gradle.language.jvm.tasks.ProcessResources.html
 tasks.named<ProcessResources>("processResources") {
   val minecraft_version_range: String by ext
   val forge_version_range: String by ext
