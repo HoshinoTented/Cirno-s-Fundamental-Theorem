@@ -12,7 +12,7 @@ val mod_group_id: String by ext
 val minecraft_version: String by ext
 val neo_version: String by ext
 
-version = mod_version
+version = "${mod_version}-${minecraft_version}"
 group = mod_group_id
 
 // Compilation
@@ -34,6 +34,12 @@ tasks.withType<JavaCompile> {
 }
 
 // Minecraft
+
+minecraft {
+  accessTransformers {
+    file("src/main/resources/META-INF/accesstransformer.cfg")
+  }
+}
 
 runs {
   configureEach {
