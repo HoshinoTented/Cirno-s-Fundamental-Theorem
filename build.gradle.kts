@@ -12,7 +12,7 @@ val mod_group_id: String by ext
 val minecraft_version: String by ext
 val forge_version: String by ext
 
-version = "$minecraft_version$-${mod_version}"
+version = "${minecraft_version}-${mod_version}"
 group = mod_group_id
 
 // Compilation
