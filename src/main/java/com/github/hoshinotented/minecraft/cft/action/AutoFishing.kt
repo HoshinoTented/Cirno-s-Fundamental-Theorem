@@ -8,8 +8,8 @@ import com.github.hoshinotented.minecraft.cft.util.firstHandedItem
 import com.github.hoshinotented.minecraft.cft.util.lastHandedItem
 import net.minecraft.client.Minecraft
 import net.minecraft.world.item.FishingRodItem
-import net.neoforged.bus.api.SubscribeEvent
-import net.neoforged.neoforge.event.TickEvent
+import net.minecraftforge.event.TickEvent
+import net.minecraftforge.eventbus.api.SubscribeEvent
 
 private class AutoFishingJob : AbstractJob<HookBiteEvent>("auto.fishing") {
   override var isCancelled: Boolean = false

@@ -1,8 +1,8 @@
 package com.github.hoshinotented.minecraft.cft.util
 
-import net.neoforged.bus.api.Event
-import net.neoforged.bus.api.SubscribeEvent
-import net.neoforged.neoforge.common.NeoForge
+import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.eventbus.api.Event
+
 
 interface Job<E : Event> {
   val isCancelled: Boolean
@@ -14,13 +14,13 @@ interface Job<E : Event> {
    * Never call this function directly
    */
   fun initialize() {
-    NeoForge.EVENT_BUS.register(this)
+    MinecraftForge.EVENT_BUS.register(this)
   }
   
   /**
    * Never call this function directly
    */
   fun dispose() {
-    NeoForge.EVENT_BUS.unregister(this)
+    MinecraftForge.EVENT_BUS.unregister(this)
   }
 }

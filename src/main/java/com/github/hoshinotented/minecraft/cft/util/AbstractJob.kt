@@ -2,7 +2,7 @@ package com.github.hoshinotented.minecraft.cft.util
 
 import net.minecraft.client.Minecraft
 import net.minecraft.network.chat.Component
-import net.neoforged.bus.api.Event
+import net.minecraftforge.eventbus.api.Event
 
 abstract class AbstractJob<E : Event>(val id: String) : Job<E> {
   override var isCancelled = false

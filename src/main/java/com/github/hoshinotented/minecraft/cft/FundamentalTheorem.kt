@@ -2,10 +2,9 @@ package com.github.hoshinotented.minecraft.cft
 
 import com.github.hoshinotented.minecraft.cft.config.Axioms
 import com.mojang.logging.LogUtils
-import net.minecraft.server.MinecraftServer
-import net.neoforged.fml.ModLoadingContext
-import net.neoforged.fml.common.Mod
-import net.neoforged.fml.config.ModConfig
+import net.minecraftforge.fml.ModLoadingContext
+import net.minecraftforge.fml.common.Mod
+import net.minecraftforge.fml.config.ModConfig
 import org.slf4j.Logger
 
 @Mod(FundamentalTheorem.MODID)

@@ -2,7 +2,7 @@ plugins {
 //  id 'eclipse'
   id("idea")
   id("maven-publish")
-  id("net.neoforged.gradle.userdev") version "7.0.57"
+  id("net.neoforged.gradle.userdev") version "7.0.80"
   kotlin("jvm") version "1.9.20"
 }
 
@@ -10,9 +10,9 @@ val mod_id: String by ext
 val mod_version: String by ext
 val mod_group_id: String by ext
 val minecraft_version: String by ext
-val neo_version: String by ext
+val forge_version: String by ext
 
-version = mod_version
+version = "$minecraft_version$-${mod_version}"
 group = mod_group_id
 
 // Compilation
@@ -90,8 +90,8 @@ repositories {
 }
 
 dependencies {
-  implementation("net.neoforged:neoforge:${neo_version}")
-  implementation("thedarkcolour:kotlinforforge-neoforge:4.10.0")
+  implementation("net.neoforged:forge:${minecraft_version}-${forge_version}")
+  implementation("thedarkcolour:kotlinforforge:4.10.0")
 }
 
 // Others
@@ -102,7 +102,7 @@ dependencies {
 // See https://docs.gradle.org/current/dsl/org.gradle.language.jvm.tasks.ProcessResources.html
 tasks.named<ProcessResources>("processResources") {
   val minecraft_version_range: String by ext
-  val neo_version_range: String by ext
+  val forge_version_range: String by ext
   val mod_loader: String by ext
   val loader_version_range: String by ext
   val mod_name: String by ext
@@ -114,8 +114,8 @@ tasks.named<ProcessResources>("processResources") {
   val replaceProperties = mapOf(
     "minecraft_version" to minecraft_version,
     "minecraft_version_range" to minecraft_version_range,
-    "neo_version" to neo_version,
-    "neo_version_range" to neo_version_range,
+    "forge_version" to forge_version,
+    "forge_version_range" to forge_version_range,
     "mod_loader" to mod_loader,
     "loader_version_range" to loader_version_range,
     "mod_id" to mod_id,
@@ -128,7 +128,7 @@ tasks.named<ProcessResources>("processResources") {
   
   inputs.properties(replaceProperties)
   
-  filesMatching(listOf("META-INF/mods.toml")) {
+  filesMatching(listOf("META-INF/mods.toml", "pack.mcmeta")) {
     expand(replaceProperties + ("project" to project))
   }
 }

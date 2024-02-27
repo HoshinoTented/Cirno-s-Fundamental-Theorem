@@ -3,12 +3,12 @@ package com.github.hoshinotented.minecraft.cft.event
 import com.github.hoshinotented.minecraft.cft.FundamentalTheorem
 import net.minecraft.client.Minecraft
 import net.minecraft.world.entity.projectile.FishingHook
-import net.neoforged.api.distmarker.Dist
-import net.neoforged.bus.api.SubscribeEvent
-import net.neoforged.fml.common.Mod
-import net.neoforged.neoforge.common.NeoForge
-import net.neoforged.neoforge.event.TickEvent
-import net.neoforged.neoforge.event.entity.EntityEvent
+import net.minecraftforge.api.distmarker.Dist
+import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.event.TickEvent
+import net.minecraftforge.event.entity.EntityEvent
+import net.minecraftforge.eventbus.api.SubscribeEvent
+import net.minecraftforge.fml.common.Mod
 import java.lang.reflect.Field
 
 data class HookBiteEvent(val hook: FishingHook) : EntityEvent(hook)
@@ -57,7 +57,7 @@ object HookBiteBroadcast {
     if (field.trySetAccessible()) {
       val biting = field.getBoolean(hook)
       if (! lastBiting && biting) {
-        NeoForge.EVENT_BUS.post(HookBiteEvent(hook))
+        MinecraftForge.EVENT_BUS.post(HookBiteEvent(hook))
       }
       
       lastBiting = biting

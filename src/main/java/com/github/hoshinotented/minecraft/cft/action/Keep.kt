@@ -7,8 +7,8 @@ import com.github.hoshinotented.minecraft.cft.util.Job
 import net.minecraft.client.Minecraft
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.phys.BlockHitResult
-import net.neoforged.bus.api.SubscribeEvent
-import net.neoforged.neoforge.event.TickEvent
+import net.minecraftforge.event.TickEvent
+import net.minecraftforge.eventbus.api.SubscribeEvent
 
 /**
  * The [Job] for keeping use item.

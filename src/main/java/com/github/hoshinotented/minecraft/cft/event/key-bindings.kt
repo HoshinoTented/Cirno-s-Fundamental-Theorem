@@ -3,12 +3,12 @@ package com.github.hoshinotented.minecraft.cft.event
 import com.github.hoshinotented.minecraft.cft.FundamentalTheorem
 import com.mojang.blaze3d.platform.InputConstants
 import net.minecraft.client.KeyMapping
-import net.neoforged.api.distmarker.Dist
-import net.neoforged.bus.api.SubscribeEvent
-import net.neoforged.fml.common.Mod
-import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent
-import net.neoforged.neoforge.client.settings.KeyConflictContext
-import net.neoforged.neoforge.event.TickEvent
+import net.minecraftforge.api.distmarker.Dist
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent
+import net.minecraftforge.client.settings.KeyConflictContext
+import net.minecraftforge.event.TickEvent
+import net.minecraftforge.eventbus.api.SubscribeEvent
+import net.minecraftforge.fml.common.Mod
 import org.lwjgl.glfw.GLFW
 
 @Suppress("unused")
@@ -21,14 +21,6 @@ object KeyBindings {
   fun of(id: String): String {
     return "key.${FundamentalTheorem.MODID}.$id"
   }
-  
-  val keyQuickMove = KeyMapping(
-    of("invoke.proof"),
-    KeyConflictContext.IN_GAME,
-    InputConstants.Type.KEYSYM,
-    GLFW.GLFW_KEY_C,
-    CATEGORIES
-  )
   
   val keyKeepUsing = KeyMapping(
     of("keep.using"),
@@ -46,7 +38,7 @@ object KeyBindings {
     CATEGORIES
   )
   
-  val keyMappings = listOf(keyQuickMove, keyKeepUsing, keyAutoFishing)
+  val keyMappings = listOf(keyKeepUsing, keyAutoFishing)
   
   @SubscribeEvent
   fun registerKeyBinding(event: RegisterKeyMappingsEvent) {
