@@ -32,21 +32,29 @@ private class AutoFishingJob : AbstractJob<HookBiteEvent>("auto.fishing") {
   }
 }
 
-object AutoFishing {
-  var job: Job<HookBiteEvent>? = null
+object AutoFishing : JobContainer<HookBiteEvent> {
+  override var job: Job<HookBiteEvent>? = null
   
   private fun onToggle(e: TickEvent.ClientTickEvent) {
     val oldJob = job
     
-    if (oldJob != null && ! oldJob.isCancelled) {
-      oldJob.cancel()
-      job = null
-    } else {
+    cancel()
+    
+    if (oldJob == null) {
       job = AutoFishingJob()
     }
   }
   
   fun initialize() {
     KeyBindings.addListener(KeyBindings.keyAutoFishing, AutoFishing::onToggle)
+  }
+  
+  override fun cancel() {
+    val job = job
+    if (job != null && ! job.isCancelled) {
+      job.cancel()
+    }
+    
+    this.job = null
   }
 }

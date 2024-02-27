@@ -68,14 +68,13 @@ private class UsingJob : AbstractJob<TickEvent.ClientTickEvent>("keep.using") {
   }
 }
 
-object Keep {
-  var job: Job<TickEvent.ClientTickEvent>? = null
-  
+object Keep : JobContainer<TickEvent.ClientTickEvent> {
+  override var job: Job<TickEvent.ClientTickEvent>? = null
   
   private fun onToggleUsing(event: TickEvent.ClientTickEvent) {
     val oldJob = job
     
-    reset()
+    cancel()
     
     if (oldJob == null || oldJob !is UsingJob) {
       using(event)
@@ -86,7 +85,7 @@ object Keep {
     job = UsingJob()
   }
   
-  fun reset() {
+  override fun cancel() {
     val job = job
     if (job != null && !job.isCancelled) {
       job.cancel()
