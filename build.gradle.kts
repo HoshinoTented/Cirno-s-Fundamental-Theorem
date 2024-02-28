@@ -71,7 +71,6 @@ minecraft {
       )
     }
   }
-  
 }
 
 // Dependency
