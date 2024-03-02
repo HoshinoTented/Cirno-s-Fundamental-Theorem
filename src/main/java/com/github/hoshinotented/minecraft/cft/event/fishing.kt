@@ -39,7 +39,6 @@ object HookBiteBroadcast {
   
   private var lastBiting: Boolean = false
   private val strategy: Strategy get() = Axioms.INSTANCE.hookBiteStrategy
-  private val AXIS : EnumSet<Direction.Axis> = EnumSet.allOf(Direction.Axis::class.java)
   
   @SubscribeEvent
   @Suppress("unused")
