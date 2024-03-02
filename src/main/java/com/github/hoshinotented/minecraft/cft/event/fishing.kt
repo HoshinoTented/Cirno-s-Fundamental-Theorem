@@ -16,6 +16,7 @@ import net.minecraftforge.event.entity.EntityEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
 import java.util.EnumSet
+import kotlin.math.abs
 
 data class HookBiteEvent(val hook: FishingHook) : EntityEvent(hook)
 
@@ -65,8 +66,10 @@ object HookBiteBroadcast {
     // val planckSize = 8.0
     val leftPos = listOf(left.x, left.y, left.z).map { it.toInt() }
     val rightPos = listOf(right.x, right.y, right.z).map { it.toInt() }
+    val diff = leftPos.zip(rightPos).map { abs( it.first - it.second) }
+    val isAround = diff.all { it <= 1 }
     
-    return leftPos == rightPos
+    return isAround
   }
   
   /**
